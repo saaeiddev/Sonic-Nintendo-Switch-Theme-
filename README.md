@@ -4,9 +4,25 @@
 
 ![Green Hill artwork](artwork/sonic-green-hill-source.png)
 
-> **Experimental work in progress.** This is not a finished release. The seven background-only packages have passed basic ZIP, metadata and image checks, but have not been validated using NXThemeTool, tested in NXThemes Installer, or tested on a Switch. They use two shared images, the stock system layout and stock icons. No hardware screenshots, custom layouts, custom applet icons, or distinct art for each screen are included.
+> **Experimental work in progress.** This is not a finished release. The seven packages have passed basic ZIP, metadata and image checks, but have not yet been verified with NXThemeTool, installed with NXThemes Installer or tested on a Switch. The Home package contains six custom applet icons. Packages use stock system layouts; no custom layout or hardware screenshots are included. The illustrations below are schematic mockups, not a promise of the actual system layout.
 
 A fan-made Sonic visual direction combining Green Hill, checkerboard cliffs, golden rings and the heroes of the series. The original generated artwork is retained under `artwork/`; all backgrounds are 1280 × 720 baseline JPEGs.
+
+## Screen previews
+
+**Illustrative mockups, not console screenshots.** These images use the packaged backgrounds and home icon artwork, but the simulated interface panels and labels are not included in the `.nxtheme` packages. Real placements, appearance and readability depend on your firmware and system theme.
+
+![Overview of all seven illustrative previews](previews/overview.jpg)
+
+| Screen | Preview |
+| --- | --- |
+| Home Menu | ![Home Menu illustrative preview](previews/home.jpg) |
+| Lock Screen | ![Lock Screen illustrative preview](previews/lock.jpg) |
+| All Applications | ![All Applications illustrative preview](previews/apps.jpg) |
+| Settings | ![Settings illustrative preview](previews/set.jpg) |
+| User Profile | ![User Profile illustrative preview](previews/user.jpg) |
+| News | ![News illustrative preview](previews/news.jpg) |
+| Player Selection | ![Player Selection illustrative preview](previews/psl.jpg) |
 
 ## Menu targets
 
@@ -28,7 +44,7 @@ After independent validation, copy the packages to `themes/` at the root of the 
 
 ## Building and validation
 
-Requires Python 3 and Pillow (`python -m pip install Pillow`). Run `python scripts/build.py` from the repository root. It converts the two source PNGs to baseline JPEGs and creates one ZIP-based package per target. The script checks archive CRCs, manifest values, image dimensions and JPEG progressive encoding. It is an independent check, not a substitute for `NxThemeTool validate`, installer testing, layout/readability testing or hardware testing.
+Requires Python 3 and Pillow (`python -m pip install Pillow`). Run `python scripts/build.py` from the repository root. It converts the four source PNGs to baseline JPEGs and creates one ZIP-based package per target. The script checks archive CRCs, manifest values, image dimensions, icon dimensions and JPEG progressive encoding. Run `python scripts/make_icons.py` to regenerate the icon sources, and `python scripts/render_previews.py` to regenerate mockups after building. It is an independent check, not a substitute for `NxThemeTool validate`, installer testing, layout/readability testing or hardware testing.
 
 Use [NXThemeTool and NXThemes Installer](https://github.com/exelix11/SwitchThemeInjector) or [Themezer's builder](https://themezer.net/tools/nxtheme-creator) to independently validate packages and create compatible layouts. No extracted firmware or SZS files are distributed here. Custom layouts may depend on firmware and require appropriate locally obtained system files.
 
@@ -37,8 +53,10 @@ Use [NXThemeTool and NXThemes Installer](https://github.com/exelix11/SwitchTheme
 ```text
 artwork/      Original generated artwork (PNG)
 backgrounds/  1280 × 720 package source images (JPEG)
-packages/     Experimental, background-only NXTheme packages
-scripts/      Reproducible build and structural checks
+packages/     Experimental NXTheme packages
+icons/        Six transparent 64 × 56 Home applet icons
+previews/     Illustrative interface mockups (not console captures)
+scripts/      Reproducible build, icon and preview scripts
 README.md     English documentation
 README.fa.md  Persian documentation
 ```

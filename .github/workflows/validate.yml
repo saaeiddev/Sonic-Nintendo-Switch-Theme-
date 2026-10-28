@@ -1,0 +1,31 @@
+name: Validate theme packages
+on: [push, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Download official NxThemeTool 3.0.2
+        run: |
+          curl -fsSL -o /tmp/nxtool.zip https://github.com/exelix11/SwitchThemeInjector/releases/download/nxt-3.0.2/NxThemeTool.zip
+          echo '633ec37e41f2bde577fa756676c394b62e2f0ba5c4466a3e45ea5ebfb00cbc6d  /tmp/nxtool.zip' | sha256sum -c -
+          mkdir /tmp/nxtool
+          unzip -q /tmp/nxtool.zip -d /tmp/nxtool
+      - name: Validate each package with official tool
+        shell: bash
+        run: |
+          set -euo pipefail
+          dll=$(find /tmp/nxtool -iname 'NxThemeTool.dll' -print -quit)
+          test -n "$dll"
+          for package in packages/*.nxtheme; do
+            echo "Validating $package"
+            output=$(dotnet "$dll" validate "$package")
+            printf '%s\n' "$output"
+            if printf '%s\n' "$output" | grep -q '^Error \['; then exit 1; fi
+            if ! printf '%s\n' "$output" | grep -q 'Completed. No warnings were generated.'; then exit 1; fi
+          done

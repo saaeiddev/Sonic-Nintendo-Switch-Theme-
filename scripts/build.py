@@ -7,7 +7,8 @@ from PIL import Image, ImageOps
 ROOT = Path(__file__).resolve().parents[1]
 PARTS = {'home':'Home Menu','lock':'Lock Screen','apps':'All Applications','set':'Settings','user':'User Profile','news':'News','psl':'Player Selection'}
 for part, title in PARTS.items():
-    source = ROOT/'artwork'/('sonic-green-hill-source.png' if part in ('home','lock') else 'sonic-team-source.png')
+    source_name = {'home':'sonic-green-hill-source.png','lock':'shadow-green-hill-source.png','apps':'sonic-team-source.png','set':'tails-green-hill-source.png','user':'shadow-green-hill-source.png','news':'tails-green-hill-source.png','psl':'sonic-team-source.png'}[part]
+    source = ROOT/'artwork'/source_name
     img = ImageOps.fit(Image.open(source).convert('RGB'), (1280,720), method=Image.Resampling.LANCZOS)
     bg = ROOT/'backgrounds'/f'{part}.jpg'
     bg.parent.mkdir(exist_ok=True)
@@ -18,9 +19,18 @@ for part, title in PARTS.items():
     with zipfile.ZipFile(dest, 'w', compression=zipfile.ZIP_DEFLATED) as z:
         z.writestr('info.json',json.dumps(meta,ensure_ascii=False,indent=2))
         z.write(bg,'image.jpg')
+        if part == 'home':
+            for name in ('news','shop','album','controller','settings','power'):
+                z.write(ROOT/'icons'/f'{name}.png',f'{name}.png')
     with zipfile.ZipFile(dest) as z:
         assert z.testzip() is None
-        assert set(z.namelist()) == {'info.json','image.jpg'}
+        expected = {'info.json','image.jpg'} | ({n+'.png' for n in ('news','shop','album','controller','settings','power')} if part == 'home' else set())
+        assert set(z.namelist()) == expected
+        if part == 'home':
+            from io import BytesIO
+            for n in expected - {'info.json','image.jpg'}:
+                icon=Image.open(BytesIO(z.read(n)))
+                assert icon.size == (64,56) and icon.format == 'PNG'
         assert json.loads(z.read('info.json')) == meta
         from io import BytesIO
         check=Image.open(BytesIO(z.read('image.jpg')))
