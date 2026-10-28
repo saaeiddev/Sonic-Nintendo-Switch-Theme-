@@ -4,7 +4,7 @@
 
 ![Green Hill artwork](artwork/sonic-green-hill-source.png)
 
-> **Experimental work in progress.** This is not a finished release. The seven packages have passed basic ZIP, metadata and image checks, but have not yet been verified with NXThemeTool, installed with NXThemes Installer or tested on a Switch. The Home package contains six custom applet icons. Packages use stock system layouts; no custom layout or hardware screenshots are included. The illustrations below are schematic mockups, not a promise of the actual system layout.
+> **Experimental work in progress.** This is not a finished release. All seven packages passed NXThemeTool 3.0.2 validation without warnings in [this workflow run](https://github.com/saaeiddev/Sonic-Nintendo-Switch-Theme-/actions/runs/40741818849), plus basic ZIP and image checks. They have not been installed using NXThemes Installer or tested on a Switch. The Home package contains six custom applet icons. Packages use stock system layouts; no custom layout or hardware screenshots are included. The illustrations below are schematic mockups, not a promise of the actual system layout.
 
 A fan-made Sonic visual direction combining Green Hill, checkerboard cliffs, golden rings and the heroes of the series. The original generated artwork is retained under `artwork/`; all backgrounds are 1280 × 720 baseline JPEGs.
 
@@ -38,7 +38,7 @@ A fan-made Sonic visual direction combining Green Hill, checkerboard cliffs, gol
 
 ## Compatibility and installation
 
-Custom themes require a compatible, modified Switch running Atmosphère and NXThemes Installer. Stock consoles do not support `.nxtheme` files. These ZIP-format packages target the modern installer generation (3.0 or later); verify firmware, Atmosphère and installer compatibility using the [official project](https://github.com/exelix11/SwitchThemeInjector/releases). Because these files have not yet been checked by the official tool or on hardware, **do not treat them as a verified release**.
+Custom themes require a compatible, modified Switch running Atmosphère and NXThemes Installer. Stock consoles do not support `.nxtheme` files. These ZIP-format packages target the modern installer generation (3.0 or later); verify firmware, Atmosphère and installer compatibility using the [official project](https://github.com/exelix11/SwitchThemeInjector/releases). The official validator checks package structure and resources; it does not prove installation, layout readability or firmware compatibility on a console. **Do not treat this as a hardware-verified release.**
 
 After independent validation, copy the packages to `themes/` at the root of the microSD card, open NXThemes Installer, select each desired part, follow its setup prompts, and reboot. Before a system update, uninstall themes. If a theme causes a boot problem, consult the official project's recovery guidance; preserve your backups and confirm the correct title ID before removing any files.
 

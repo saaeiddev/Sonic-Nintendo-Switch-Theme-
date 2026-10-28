@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build experimental background-only NXThemes, in ZIP format (installer 3+)."""
+"""Build experimental NXThemes, in ZIP format (installer 3+)."""
 from pathlib import Path
 import hashlib, json, zipfile
 from PIL import Image, ImageOps
